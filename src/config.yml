@@ -1,0 +1,16 @@
+## Default configuration file for
+## BungeeStaff v1.0.0 Developed by Lickem
+Version: v1.0.0
+Custom-Permissions:
+  Core-Command: 'bstaff.core'
+  Toggle-Staff-Messages: 'bstaff.togglestaffmessages'
+  Staff-Join: 'bstaff.staff.join'
+  Staff-Leave: 'bstaff.staff.leave'
+  StaffChat-Command: 'bstaff.staffchat'
+  StaffChat-Notify-Command: 'bstaff.staffchat.notify'
+  Request-Notify: 'bstaff.request.notify'
+  Report-Notify: 'bstaff.report.notify'
+  Staff-Follow: 'bstaff.follow'
+
+# Don't touch this
+Settings:

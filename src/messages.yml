@@ -1,0 +1,70 @@
+## Default Message configuration file for
+## BungeeStaff v1.0.0 Developed by Lickem
+BungeeStaff-Module:
+  Reload: '&8[&bBungeeStaff&8] &aModules reloaded'
+  No-Argument:
+    - '&cToo few arguments'
+    - '&cUsage: /bungeestaff <help>'
+  Help:
+    - '&f&lBungeeStaff Help:'
+    - '&3/bungeestaff reload &8- &7Reload the config modules'
+    - '&3/staffchat(sc) &8- &7Toggles Staff Chat'
+    - '&3/report <Player> &8- &7Report a player to staff'
+    - '&3/request(helpop) <Message> &8- &7Request assistance'
+    - '&3/togglestaffmessages(tsm) &8- &7Toggle staff messages'
+  No-Such-Argument:
+      - '&cIncorrect usage'
+      - '&cUsage: /bungeestaff <help>'
+
+Report-Module:
+  No-Argument:
+    - '&cToo few arguments'
+    - '&cUsage: /report <Player> <Reason>'
+  Player-Not-Found: '&cPlayer not found'
+  Player-Sender: '&cYou cannot report yourself you silly goose ;)'
+  Report-Sent: '&cThanks for reporting! This report has been sent to all online staff!'
+  Report-Cooldown: 5
+# Available presets
+# MINUTES, SECONDS, HOURS, DAYS
+  Report-Cooldown-Type: minutes
+  Report-Cooldown-Message: '&cYou can only use this command once every &4%amount% %type%'
+  Report-Broadcast:
+    - '&9[Report] &7(%reporter_server%) &b%reporter% &7has reported &b%reported% &7(%reported_server%)'
+    - '    &9Reason:&7 %reason%'
+  Report-Clickable: true
+  Hover-Message: '&7Click to join &b%reported%''s &7server &e(%reported_server%)'
+## Customizable command!
+  JSONClick-Command: '/bstafffollow %reported%'
+
+Staff-Follow:
+  No-Argument:
+    - '&cToo few arguments'
+    - '&cUsage: /bstafffollow <Player>'
+  Joining: '&7Joining &b%reported%''s &7server! &e(%reported_server%)'
+
+Request-Module:
+  No-Argument:
+    - '&cToo few arguments'
+    - '&cUsage: /request <Reason>'
+  Request-Sent: '&cRequest sent'
+  Request-Cooldown: 4
+# Available presets
+# MINUTES, SECONDS, HOURS, DAYS
+  Request-Cooldown-Type: minutes
+  Request-Cooldown-Message: '&cYou can only use this command once every &4%amount% %type%'
+  Request-Broadcast:
+    - '&3[Request] &7(%player_server%) &b%player% &7has requested assistance'
+    - '    &3Reason:&7 %reason%'
+
+StaffChat-Module:
+  StaffChat-Enabled: '&7Staff chat has been &aenabled'
+  StaffChat-Disabled: '&7Staff chat has been &cdisabled'
+  StaffChat-Message: '&8(&2%player_server%&8) &2%player%:&a %message%'
+
+Staff-Messages:
+  Staff-Join: '&9[Staff] &b%player% has joined the network!'
+  Staff-Leave: '&9[Staff] &b%player% has left the network!'
+  Staff-Messages-On: '&7You can &anow &7see staff messages'
+  Staff-Messages-Off: '&7You can &cno longer &7see staff messages'
+
+No-Permission: '&4&lError: &cYou do not have permission for this command!'

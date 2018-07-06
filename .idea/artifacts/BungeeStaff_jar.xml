@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="BungeeStaff:jar">
+    <output-path>$USER_HOME$/Desktop</output-path>
+    <root id="archive" name="BungeeStaff.jar">
+      <element id="module-output" name="BungeeStaff" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
