@@ -1,6 +1,6 @@
 ## Default configuration file for
 ## BungeeStaff v1.0.0 Developed by Lickem
-Version: v1.0.0
+Version: v1.0.1
 Custom-Permissions:
   Core-Command: 'bstaff.core'
   Toggle-Staff-Messages: 'bstaff.togglestaffmessages'
