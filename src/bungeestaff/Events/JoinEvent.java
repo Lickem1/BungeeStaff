@@ -21,8 +21,8 @@ public class JoinEvent implements Listener {
         ProxiedPlayer p = e.getPlayer();
 
         for(ProxiedPlayer pp : ProxyServer.getInstance().getPlayers()) {
-            if(p.hasPermission("bstaff.staff.join")) {
-                if(pp.hasPermission("bstaff.staff.join")) {
+            if(p.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.Staff-Join"))) {
+                if(pp.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.Staff-Join"))) {
                     if(BungeeStaff.getInstance().getBungeeStaff().get("Settings." + p.getUniqueId()) == null) {
                         try {
                             File file = new File(BungeeStaff.getInstance().getDataFolder(), "config.yml");

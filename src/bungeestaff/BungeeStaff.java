@@ -148,7 +148,7 @@ public class BungeeStaff extends Plugin implements Listener {
         String partialPlayerName = ev.getCursor().toLowerCase();
 
         int lastSpaceIndex = partialPlayerName.lastIndexOf(' ');
-        if (lastSpaceIndex >= 1) {
+        if (lastSpaceIndex >= 0) {
             partialPlayerName = partialPlayerName.substring(lastSpaceIndex + 1);
         }
 

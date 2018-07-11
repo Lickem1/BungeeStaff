@@ -1,5 +1,5 @@
 ## Default Message configuration file for
-## BungeeStaff v1.0.1 Developed by Lickem
+## BungeeStaff v1.0.2 Developed by Lickem
 BungeeStaff-Module:
   Reload: '&8[&bBungeeStaff&8] &aModules reloaded'
   No-Argument:
@@ -66,5 +66,11 @@ Staff-Messages:
   Staff-Leave: '&9[Staff] &b%player% has left the network!'
   Staff-Messages-On: '&7You can &anow &7see staff messages'
   Staff-Messages-Off: '&7You can &cno longer &7see staff messages'
+
+#Staff-List:
+#  Format: '%rank% %player% &7-&b %server%'
+#  Message:
+#    - '&7Online Staff: &b%online_staff%'
+#    - '%format%'
 
 No-Permission: '&4&lError: &cYou do not have permission for this command!'

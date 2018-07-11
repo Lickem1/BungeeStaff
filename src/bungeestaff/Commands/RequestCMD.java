@@ -6,6 +6,7 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
+import java.nio.BufferUnderflowException;
 import java.util.concurrent.TimeUnit;
 
 public class RequestCMD extends Command {
@@ -36,7 +37,7 @@ public class RequestCMD extends Command {
                     p.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Request-Module.Request-Sent")));
 
                     for(ProxiedPlayer pp : ProxyServer.getInstance().getPlayers()) {
-                        if(pp.hasPermission("bstaff.request.notify")) {
+                        if(pp.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.Request-Notify"))) {
                             for(String string : BungeeStaff.getInstance().getMessages().getStringList("Request-Module.Request-Broadcast")) {
                                 if(BungeeStaff.getInstance().getBungeeStaff().getBoolean("Settings." + pp.getUniqueId()) == true) {
                                     pp.sendMessage(BungeeStaff.getInstance().translate(string).replaceAll("%player_server%", p.getServer().getInfo().getName())

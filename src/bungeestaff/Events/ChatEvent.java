@@ -22,7 +22,7 @@ public class ChatEvent implements Listener {
             } else {
                 e.setCancelled(true);
                 for(ProxiedPlayer pp : ProxyServer.getInstance().getPlayers()) {
-                    if(pp.hasPermission("bstaff.staffchat.notify")) {
+                    if(pp.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.StaffChat-Notify-Command"))) {
                         if(BungeeStaff.getInstance().getBungeeStaff().getBoolean("Settings." + pp.getUniqueId()) == true) {
                             pp.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("StaffChat-Module.StaffChat-Message"))
                                     .replaceAll("%player_server%", p.getServer().getInfo().getName()).replaceAll("%player%", p.getName()).replaceAll("%message%", e.getMessage()));

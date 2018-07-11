@@ -22,8 +22,8 @@ public class QuitEvent implements Listener {
         BungeeStaff.getInstance().reportcooldown.remove(p);
 
         for(ProxiedPlayer pp : ProxyServer.getInstance().getPlayers()) {
-            if(p.hasPermission("bstaff.staff.leave")) {
-                if(pp.hasPermission("bstaff.staff.leave")) {
+            if(p.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.Staff-Leave"))) {
+                if(pp.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.Staff-Leave"))) {
                     if(BungeeStaff.getInstance().getBungeeStaff().getBoolean("Settings." + pp.getUniqueId()) == true) {
                         pp.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Staff-Messages.Staff-Leave").replaceAll("%player%", p.getName())));
                     }

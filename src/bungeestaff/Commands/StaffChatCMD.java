@@ -35,7 +35,7 @@ public class StaffChatCMD extends Command {
                         s.append(args[i]).append(" ");
                     }
                     for(ProxiedPlayer pp : ProxyServer.getInstance().getPlayers()) {
-                        if(pp.hasPermission("bstaff.staffchat.notify")) {
+                        if(pp.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.Request-Notify"))) {
                             if(BungeeStaff.getInstance().getBungeeStaff().getBoolean("Settings." + pp.getUniqueId()) == true) {
                                 pp.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("StaffChat-Module.StaffChat-Message")).replaceAll("%player%", p.getName())
                                         .replaceAll("%player_server%", p.getServer().getInfo().getName()).replaceAll("%message%", s.toString()));

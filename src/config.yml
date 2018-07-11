@@ -1,6 +1,6 @@
 ## Default configuration file for
 ## BungeeStaff v1.0.0 Developed by Lickem
-Version: v1.0.1
+Version: v1.0.2
 Custom-Permissions:
   Core-Command: 'bstaff.core'
   Toggle-Staff-Messages: 'bstaff.togglestaffmessages'
@@ -11,6 +11,12 @@ Custom-Permissions:
   Request-Notify: 'bstaff.request.notify'
   Report-Notify: 'bstaff.report.notify'
   Staff-Follow: 'bstaff.follow'
+
+#Ranks:
+#  owner:
+#    prefix: '&4[Owner] &c'
+#    users:
+#      - c2cb2ee5-cfa5-4553-b8b3-5b3761aacbf0
 
 # Don't touch this
 Settings:
