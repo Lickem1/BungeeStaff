@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="core">
+  <library name="BungeeCord">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Desktop/Vodix2018 Re-Make/bungee/core.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/BungeeCord.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

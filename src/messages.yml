@@ -1,20 +1,48 @@
 ## Default Message configuration file for
-## BungeeStaff v1.0.2 Developed by Lickem
+## BungeeStaff v2.0.0 Developed by Lickem
 BungeeStaff-Module:
   Reload: '&8[&bBungeeStaff&8] &aModules reloaded'
   No-Argument:
     - '&cToo few arguments'
     - '&cUsage: /bungeestaff <help>'
   Help:
-    - '&f&lBungeeStaff Help:'
-    - '&3/bungeestaff reload &8- &7Reload the config modules'
-    - '&3/staffchat(sc) &8- &7Toggles Staff Chat'
-    - '&3/report <Player> &8- &7Report a player to staff'
-    - '&3/request(helpop) <Message> &8- &7Request assistance'
-    - '&3/togglestaffmessages(tsm) &8- &7Toggle staff messages'
+    - '&e&lBungeeStaff Help:'
+    - '&6/bungeestaff reload &8- &7Reload the config modules'
+    - '&6/bungeestaff group &8- &7BungeeStaff grouping system'
+    - '&6/staffchat(sc) &8- &7Toggles Staff Chat'
+    - '&6/report <Player> &8- &7Report a player to staff'
+    - '&6/request(helpop) <Message> &8- &7Request assistance'
+    - '&6/togglestaffmessages(tsm) &8- &7Toggle staff messages'
   No-Such-Argument:
       - '&cIncorrect usage'
       - '&cUsage: /bungeestaff <help>'
+
+Group-Module:
+  Group-Created: '&e&l* &7Group &b%group% &fcreated!'
+  Group-Deleted: '&e&l* &7Group &b%group% &fdeleted!'
+  Group-Not-Found: '&e&l* &7Group &b%group% &7does not exist!'
+  Group-Found: '&e&l* &7Group &b%group% &7already exists!'
+  Group-Prefix: '&e&l* &6%group%''s &7prefix: %prefix%Notch'
+  Group-Set-Prefix: '&e&l* &7You''ve set &6%group%''s &7prefix to: %prefix%BestPluginEvar'
+  Player-Not-Found: '&e&l* &cPlayer not found'
+  Player-Group-Add: '&e&l* &7You set &b%player%''s &7group to &b%group%&7!'
+  Player-Group-Remove: '&e&l* &7Group &b%group% &7has been remove from &c%player%!'
+  Player-Group-Exists: '&e&l* &b%player% &7is already a member of this group!'
+  Player-Group-Not-Exist: '&e&l* &b%player% &7is not a member in this group!'
+  Group-List:
+    - '&6&lAvailable Groups:'
+    - '&c%groups%'
+  No-Argument:
+    - '&cToo few arguments'
+    - '&cUsage: /bungeestaff group <help>'
+  Help:
+    - '&e&lBungeeStaff Group Help:'
+    - '&6/bungeestaff group add <Player> <Group> &8- &7Add a player to specified group!'
+    - '&6/bungeestaff group remove <Player> <Group> &8- &7Remove a player to specified group!'
+    - '&6/bungeestaff group create <Group> &8- &7Create a group!'
+    - '&6/bungeestaff group delete <Group> &8- &7Delete a group!'
+    - '&6/bungeestaff group setprefix <Group> <Prefix> &8- &7Set a group prefix'
+    - '&6/bungeestaff group list &8- &7List available groups!'
 
 Report-Module:
   No-Argument:
@@ -59,7 +87,7 @@ Request-Module:
 StaffChat-Module:
   StaffChat-Enabled: '&7Staff chat has been &aenabled'
   StaffChat-Disabled: '&7Staff chat has been &cdisabled'
-  StaffChat-Message: '&8(&2%player_server%&8) &2%player%:&a %message%'
+  StaffChat-Message: '&8(&2%player_server%&8) %prefix%%player%:&a %message%'
 
 Staff-Messages:
   Staff-Join: '&9[Staff] &b%player% has joined the network!'
@@ -68,7 +96,7 @@ Staff-Messages:
   Staff-Messages-Off: '&7You can &cno longer &7see staff messages'
 
 #Staff-List:
-#  Format: '%rank% %player% &7-&b %server%'
+#  Format: '%prefix%%player% &7-&b %player_server%'
 #  Message:
 #    - '&7Online Staff: &b%online_staff%'
 #    - '%format%'

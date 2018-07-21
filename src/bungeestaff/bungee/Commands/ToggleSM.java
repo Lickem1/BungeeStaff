@@ -1,6 +1,6 @@
-package bungeestaff.Commands;
+package bungeestaff.bungee.Commands;
 
-import bungeestaff.BungeeStaff;
+import bungeestaff.bungee.BungeeStaff;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
@@ -21,22 +21,22 @@ public class ToggleSM extends Command {
             ProxiedPlayer p = (ProxiedPlayer) sender;
 
             if(p.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.Toggle-Staff-Messages"))) {
-                if(BungeeStaff.getInstance().getBungeeStaff().getBoolean("Settings." + p.getUniqueId()) == true) {
+                if(BungeeStaff.getInstance().getSettings().getBoolean("Settings." + p.getUniqueId() + ".Staff-Messages") == true) {
                     try {
-                        File file = new File(BungeeStaff.getInstance().getDataFolder(), "config.yml");
+                        File file = new File(BungeeStaff.getInstance().getDataFolder(), "settings.yml");
                         p.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Staff-Messages.Staff-Messages-Off")));
-                        BungeeStaff.getInstance().getBungeeStaff().set("Settings." + p.getUniqueId(), false);
-                        BungeeStaff.getInstance().bungeestaffPP.save(BungeeStaff.getInstance().bungeestaff, file);
+                        BungeeStaff.getInstance().getSettings().set("Settings." + p.getUniqueId() + ".Staff-Messages", false);
+                        BungeeStaff.getInstance().settingsPP.save(BungeeStaff.getInstance().settings, file);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
                 } else {
                     try {
-                        File file = new File(BungeeStaff.getInstance().getDataFolder(), "config.yml");
+                        File file = new File(BungeeStaff.getInstance().getDataFolder(), "settings.yml");
                         p.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Staff-Messages.Staff-Messages-On")));
-                        BungeeStaff.getInstance().getBungeeStaff().set("Settings." + p.getUniqueId(), true);
-                        BungeeStaff.getInstance().bungeestaffPP.save(BungeeStaff.getInstance().bungeestaff, file);
+                        BungeeStaff.getInstance().getSettings().set("Settings." + p.getUniqueId() + ".Staff-Messages", true);
+                        BungeeStaff.getInstance().settingsPP.save(BungeeStaff.getInstance().settings, file);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

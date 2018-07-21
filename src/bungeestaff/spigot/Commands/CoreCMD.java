@@ -1,35 +1,33 @@
-package bungeestaff.Commands;
+package bungeestaff.spigot.Commands;
 
-import bungeestaff.BungeeStaff;
-import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.plugin.Command;
+import bungeestaff.spigot.BungeeStaff;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 
-import java.util.List;
-
-public class CoreCMD extends Command {
+public class CoreCMD implements CommandExecutor {
 
     public CoreCMD() {
-        super("bungeestaff", "", "bstaff");
+        bungeestaff.spigot.BungeeStaff.getInstance().getCommand("bungeestaff").setExecutor(this);
     }
 
-    @Override
-    public void execute(CommandSender sender, String[] args) {
-        if(sender.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.Core-Command"))) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if(sender.hasPermission(BungeeStaff.getInstance().getConfig().getString("Custom-Permissions.Core-Command"))) {
             if(args.length == 0) {
                 for(String s : BungeeStaff.getInstance().getMessages().getStringList("BungeeStaff-Module.No-Argument")) {
                     sender.sendMessage(BungeeStaff.getInstance().translate(s));
                 }
-                return;
+                return true;
             }
             if(args[0].equalsIgnoreCase("help")) {
                 for(String h : BungeeStaff.getInstance().getMessages().getStringList("BungeeStaff-Module.Help")) {
                     sender.sendMessage(BungeeStaff.getInstance().translate(h));
                 }
-                return;
+                return true;
             }
             else if(args[0].equalsIgnoreCase("reload")) {
-                BungeeStaff.getInstance().registerConfig();
+                BungeeStaff.getInstance().loadYamls();
+                BungeeStaff.getInstance().reloadConfig();
                 sender.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("BungeeStaff-Module.Reload")));
             } else {
                 for(String s : BungeeStaff.getInstance().getMessages().getStringList("BungeeStaff-Module.No-Such-Argument")) {
@@ -39,5 +37,6 @@ public class CoreCMD extends Command {
         } else {
             sender.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("No-Permission")));
         }
+        return true;
     }
 }

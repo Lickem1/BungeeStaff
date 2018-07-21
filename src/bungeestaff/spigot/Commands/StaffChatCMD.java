@@ -1,24 +1,23 @@
-package bungeestaff.Commands;
+package bungeestaff.spigot.Commands;
 
-import bungeestaff.BungeeStaff;
-import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.plugin.Command;
+import bungeestaff.spigot.BungeeStaff;
+import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
-public class StaffChatCMD extends Command {
+public class StaffChatCMD implements CommandExecutor {
 
     public StaffChatCMD() {
-        super("staffchat", "", "sc");
+        BungeeStaff.getInstance().getCommand("staffchat").setExecutor(this);
     }
 
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-    @Override
-    public void execute(CommandSender sender, String[] args) {
-
-        if(sender instanceof ProxiedPlayer) {
-            ProxiedPlayer p = (ProxiedPlayer) sender;
-            if(p.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.StaffChat-Command"))) {
+        if(sender instanceof Player) {
+            Player p = (Player) sender;
+            if(p.hasPermission(BungeeStaff.getInstance().getConfig().getString("Custom-Permissions.StaffChat-Command"))) {
 
                 if(args.length == 0) {
                     if(BungeeStaff.getInstance().getStaffchat().contains(p)) {
@@ -34,11 +33,11 @@ public class StaffChatCMD extends Command {
                     for(int i = 0; i < args.length; i++) {
                         s.append(args[i]).append(" ");
                     }
-                    for(ProxiedPlayer pp : ProxyServer.getInstance().getPlayers()) {
-                        if(pp.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.Request-Notify"))) {
-                            if(BungeeStaff.getInstance().getBungeeStaff().getBoolean("Settings." + pp.getUniqueId()) == true) {
+                    for(Player pp : Bukkit.getServer().getOnlinePlayers()) {
+                        if(pp.hasPermission(BungeeStaff.getInstance().getConfig().getString("Custom-Permissions.Request-Notify"))) {
+                            if(BungeeStaff.getInstance().getConfig().getBoolean("Settings." + pp.getUniqueId()) == true) {
                                 pp.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("StaffChat-Module.StaffChat-Message")).replaceAll("%player%", p.getName())
-                                        .replaceAll("%player_server%", p.getServer().getInfo().getName()).replaceAll("%message%", s.toString()));
+                                        .replaceAll("%player_server%", p.getServer().getName()).replaceAll("%message%", s.toString()));
                             }
                         }
                     }
@@ -48,5 +47,6 @@ public class StaffChatCMD extends Command {
                 p.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("No-Permission")));
             }
         }
+        return true;
     }
 }

@@ -1,4 +1,4 @@
-package bungeestaff;
+package bungeestaff.bungee;
 
 import java.util.HashMap;
 import java.util.Map;

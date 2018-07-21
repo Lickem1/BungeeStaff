@@ -1,17 +1,17 @@
-package bungeestaff;
+package bungeestaff.bungee;
 
-import bungeestaff.Commands.*;
-import bungeestaff.Events.ChatEvent;
-import bungeestaff.Events.JoinEvent;
-import bungeestaff.Events.QuitEvent;
+import bungeestaff.bungee.Commands.*;
+import bungeestaff.bungee.Events.ChatEvent;
+import bungeestaff.bungee.Events.JoinEvent;
+import bungeestaff.bungee.Events.QuitEvent;
+import bungeestaff.bungee.Events.TabComplete;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.TabCompleteEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
-import net.md_5.bungee.conf.Configuration;
+import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
 import net.md_5.bungee.event.EventHandler;
@@ -31,11 +31,15 @@ public class BungeeStaff extends Plugin implements Listener {
     public net.md_5.bungee.config.Configuration messages;
     public ConfigurationProvider messagesPP;
     public File messagesFile;
+    public net.md_5.bungee.config.Configuration settings;
+    public ConfigurationProvider settingsPP;
+    public File settingsFile;
 
     private static BungeeStaff instance;
     public ArrayList<ProxiedPlayer> staffchat = new ArrayList<ProxiedPlayer>();
     public ArrayList<ProxiedPlayer> requestcooldown = new ArrayList<ProxiedPlayer>();
     public ArrayList<ProxiedPlayer> reportcooldown = new ArrayList<ProxiedPlayer>();
+    public ArrayList<ProxiedPlayer> staffonline = new ArrayList<ProxiedPlayer>();
 
     public static BungeeStaff getInstance() {
         if(instance == null) {
@@ -62,9 +66,11 @@ public class BungeeStaff extends Plugin implements Listener {
 
         bungeestaffFile = new File(ProxyServer.getInstance().getPluginsFolder() + "/config.yml");
         messagesFile = new File(ProxyServer.getInstance().getPluginsFolder() + "/messages.yml");
+        settingsFile = new File(ProxyServer.getInstance().getPluginsFolder() + "/settings.yml");
 
         bungeestaffPP = ConfigurationProvider.getProvider(YamlConfiguration.class);
         messagesPP = ConfigurationProvider.getProvider(YamlConfiguration.class);
+        settingsPP = ConfigurationProvider.getProvider(YamlConfiguration.class);
 
         register();
         createFiles();
@@ -94,9 +100,11 @@ public class BungeeStaff extends Plugin implements Listener {
         getProxy().getPluginManager().registerCommand(this, new ReportCMD());
         getProxy().getPluginManager().registerCommand(this, new ToggleSM());
         getProxy().getPluginManager().registerCommand(this, new StaffFollow());
+        getProxy().getPluginManager().registerCommand(this, new StaffList());
         new ChatEvent();
         new QuitEvent();
         new JoinEvent();
+        new TabComplete();
 
     }
     private void createFiles() {
@@ -119,11 +127,20 @@ public class BungeeStaff extends Plugin implements Listener {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        File file3 = new File(getDataFolder(), "settings.yml");
+        if (!file3.exists())
+            try {
+                InputStream in3 = getResourceAsStream("settings.yml");
+                Files.copy(in3, file3.toPath(), new CopyOption[0]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
     public void registerConfig() {
         try {
             bungeestaff = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(instance.getDataFolder(), "config.yml"));
             messages = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(instance.getDataFolder(), "messages.yml"));
+            settings = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(instance.getDataFolder(), "settings.yml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -143,19 +160,8 @@ public class BungeeStaff extends Plugin implements Listener {
     public ArrayList<ProxiedPlayer> getStaffchat() {
         return staffchat;
     }
-    @EventHandler
-    public void onTabComplete(TabCompleteEvent ev) {
-        String partialPlayerName = ev.getCursor().toLowerCase();
 
-        int lastSpaceIndex = partialPlayerName.lastIndexOf(' ');
-        if (lastSpaceIndex >= 0) {
-            partialPlayerName = partialPlayerName.substring(lastSpaceIndex + 1);
-        }
-
-        for (ProxiedPlayer p : getProxy().getPlayers()) {
-            if (p.getName().toLowerCase().startsWith(partialPlayerName)) {
-                ev.getSuggestions().add(p.getName());
-            }
-        }
+    public Configuration getSettings() {
+        return settings;
     }
 }

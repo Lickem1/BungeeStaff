@@ -1,6 +1,6 @@
-package bungeestaff.Commands;
+package bungeestaff.bungee.Commands;
 
-import bungeestaff.BungeeStaff;
+import bungeestaff.bungee.BungeeStaff;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;

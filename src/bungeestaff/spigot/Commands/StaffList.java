@@ -1,15 +1,10 @@
-package bungeestaff.Commands;
+package bungeestaff.spigot.Commands;
 
-import bungeestaff.BungeeStaff;
-import bungeestaff.Data;
-import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.plugin.Command;
+import bungeestaff.spigot.BungeeStaff;
 
-public class StaffList extends Command {
+public class StaffList{
 
-    public StaffList() {
+    /*public StaffList() {
         super("stafflist", "", "slist");
     }
 
@@ -27,5 +22,5 @@ public class StaffList extends Command {
                 }
             }
         }
-    }
+    }*/
 }
