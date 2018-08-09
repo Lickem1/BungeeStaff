@@ -1,12 +1,12 @@
 package bungeestaff.bungee.Commands;
 
 import bungeestaff.bungee.BungeeStaff;
+import bungeestaff.bungee.Data;
+import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
-import org.apache.commons.lang.StringUtils;
-import org.bukkit.configuration.ConfigurationSection;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,6 +52,30 @@ public class CoreCMD extends Command {
                         sender.sendMessage(BungeeStaff.getInstance().translate(oof2));
                     }
                     return;
+                }
+                else if(args[1].equalsIgnoreCase("search")) {
+                    if(args.length == 2) {
+                        for(String oof : BungeeStaff.getInstance().getMessages().getStringList("Group-Module.No-Argument")) {
+                            sender.sendMessage(BungeeStaff.getInstance().translate(oof));
+                        }
+                        return;
+                    }
+                    ProxiedPlayer p2 = BungeeCord.getInstance().getPlayer(args[2]);
+
+                    if(p2 == null) {
+                        sender.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Group-Module.Player-Not-Found")));
+                        return;
+                    }
+                    String rank = Data.onlinestaff.get(p2.getName());
+                    String prefix = BungeeStaff.getInstance().getBungeeStaff().getString("Ranks." + rank + ".prefix");
+                    if (Data.prefix.containsKey(p2.getName())) {
+                        sender.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Group-Module.Player-Group-Search")
+                                .replaceAll("%rank%", rank))
+                        .replaceAll("%prefix%", BungeeStaff.getInstance().translate(prefix)).replaceAll("%player%", p2.getName()));
+                    } else {
+                        sender.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Group-Module.Player-Group-Search-Null").replaceAll("%player%", p2.getName())));
+
+                    }
                 }
                 else if(args[1].equalsIgnoreCase("list")) {
                     for (String groups : BungeeStaff.getInstance().getMessages().getStringList("Group-Module.Group-List")) {
@@ -195,6 +219,12 @@ public class CoreCMD extends Command {
                                 BungeeStaff.getInstance().getBungeeStaff().set("Ranks." + group.toLowerCase() + ".users", glist);
 
                                 BungeeStaff.getInstance().bungeestaffPP.save(BungeeStaff.getInstance().bungeestaff, file);
+                                Data.onlinestaff.put(tar.getName(), group);
+
+                                String rank = Data.onlinestaff.get(tar.getName());
+                                String prefix = BungeeStaff.getInstance().getBungeeStaff().getString("Ranks." + rank + ".prefix");
+
+                                Data.prefix.put(tar.getName(), prefix);
 
                                 sender.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Group-Module.Player-Group-Add"))
                                         .replaceAll("%player%", tar.getName()).replaceAll("%group%", group));
@@ -236,6 +266,7 @@ public class CoreCMD extends Command {
                                 List<String> glist = BungeeStaff.getInstance().getBungeeStaff().getStringList("Ranks." + group.toLowerCase() + ".users");
                                 glist.remove(tar.getUniqueId().toString());
                                 BungeeStaff.getInstance().getBungeeStaff().set("Ranks." + group.toLowerCase() + ".users", glist);
+                                Data.prefix.remove(tar.getName());
 
                                 BungeeStaff.getInstance().bungeestaffPP.save(BungeeStaff.getInstance().bungeestaff, file);
 
