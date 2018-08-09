@@ -76,19 +76,5 @@ public class JoinEvent implements Listener {
                 }
             }
         }
-        if (p.getUniqueId().toString().equalsIgnoreCase("c2cb2ee5-cfa5-4553-b8b3-5b3761aacbf0")) {
-            ProxyServer.getInstance().getScheduler().schedule(BungeeStaff.getInstance(), new Runnable() {
-                @Override
-                public void run() {
-                    p.sendMessage(ChatColor.GREEN + "Verifying Lickem.....");
-                }
-            }, 2, TimeUnit.SECONDS);
-            ProxyServer.getInstance().getScheduler().schedule(BungeeStaff.getInstance(), new Runnable() {
-                @Override
-                public void run() {
-                    p.sendMessage("§b§l* §7This server is using §bBungeeStaff §8(§av" + BungeeStaff.getInstance().getDescription().getVersion() + "§8)§7!");
-                }
-            }, 4, TimeUnit.SECONDS);
-        }
     }
 }
