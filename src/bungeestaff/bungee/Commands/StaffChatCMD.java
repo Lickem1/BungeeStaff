@@ -1,6 +1,7 @@
 package bungeestaff.bungee.Commands;
 
 import bungeestaff.bungee.BungeeStaff;
+import bungeestaff.bungee.Data;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -17,8 +18,8 @@ public class StaffChatCMD extends Command {
     public void execute(CommandSender sender, String[] args) {
 
         if(sender instanceof ProxiedPlayer) {
-            ProxiedPlayer p = (ProxiedPlayer) sender;
-            if(p.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.StaffChat-Command"))) {
+            if(sender.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.StaffChat-Command"))) {
+                ProxiedPlayer p = (ProxiedPlayer) sender;
 
                 if(args.length == 0) {
                     if(BungeeStaff.getInstance().getStaffchat().contains(p)) {
@@ -28,35 +29,50 @@ public class StaffChatCMD extends Command {
                         BungeeStaff.getInstance().staffchat.add(p);
                         p.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("StaffChat-Module.StaffChat-Enabled")));
                     }
+                    return;
                 }
                 if(args.length >= 1) {
-                    StringBuilder s = new StringBuilder();
+                    StringBuilder ss = new StringBuilder();
                     for(int i = 0; i < args.length; i++) {
-                        s.append(args[i]).append(" ");
+                        ss.append(args[i]).append(" ");
                     }
                     for(ProxiedPlayer pp : ProxyServer.getInstance().getPlayers()) {
                         if(pp.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.Request-Notify"))) {
-                            net.md_5.bungee.config.Configuration s2 = BungeeStaff.getInstance().getBungeeStaff().getSection("Ranks");
+                            if(Data.prefix.containsKey(p.getName())) {
+                                net.md_5.bungee.config.Configuration s = BungeeStaff.getInstance().getBungeeStaff().getSection("Ranks");
 
-                            for(String key : s2.getKeys()) {
-                                s2.get(key);
+                                for(String key : s.getKeys()) {
+                                    s.get(key);
 
-                                for (String oof : s2.getSection(key).getStringList("users")) {
-                                    if (oof.contains(p.getUniqueId().toString())) {
-                                        if (BungeeStaff.getInstance().getSettings().getBoolean("Settings." + pp.getUniqueId() + ".Staff-Messages") == true) {
-                                            pp.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("StaffChat-Module.StaffChat-Message"))
-                                                    .replaceAll("%player_server%", p.getServer().getInfo().getName()).replaceAll("%player%", p.getName()).replaceAll("%message%", s.toString())
-                                                    .replaceAll("%prefix%", BungeeStaff.getInstance().translate(s2.getSection(key).getString("prefix"))));
+                                    for (String oof : s.getSection(key).getStringList("users")) {
+                                        if (oof.contains(p.getUniqueId().toString())) {
+                                            if (BungeeStaff.getInstance().getSettings().getBoolean("Settings." + pp.getUniqueId() + ".Staff-Messages") == true) {
+                                                pp.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("StaffChat-Module.StaffChat-Message"))
+                                                        .replaceAll("%player_server%", p.getServer().getInfo().getName()).replaceAll("%player%", p.getName()).replaceAll("%message%", ss.toString())
+                                                        .replaceAll("%prefix%", BungeeStaff.getInstance().translate(s.getSection(key).getString("prefix"))));
+                                            }
                                         }
                                     }
+                                }
+                            } else {
+                                if (BungeeStaff.getInstance().getSettings().getBoolean("Settings." + pp.getUniqueId() + ".Staff-Messages") == true) {
+                                    pp.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("StaffChat-Module.StaffChat-Message"))
+                                            .replaceAll("%player_server%", p.getServer().getInfo().getName()).replaceAll("%player%", p.getName()).replaceAll("%message%", ss.toString())
+                                            .replaceAll("%prefix%", BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getBungeeStaff().getString("No-Rank"))));
                                 }
                             }
                         }
                     }
+                    String rank = Data.onlinestaff.get(p.getName());
+
+                    ProxyServer.getInstance().getConsole().sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("StaffChat-Module.StaffChat-Message"))
+                            .replaceAll("%player_server%", p.getServer().getInfo().getName()).replaceAll("%player%", p.getName()).replaceAll("%message%", ss.toString())
+                            .replaceAll("%prefix%", BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getBungeeStaff().getString("Ranks." + rank + ".prefix"))));
+                    return;
                 }
 
             } else {
-                p.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("No-Permission")));
+                sender.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("No-Permission")));
             }
         }
     }

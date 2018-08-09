@@ -1,25 +1,27 @@
 ## Default Message configuration file for
-## BungeeStaff v2.0.0 Developed by Lickem
+## BungeeStaff v2.1.2 Developed by Lickem
 BungeeStaff-Module:
   Reload: '&8[&bBungeeStaff&8] &aModules reloaded'
   No-Argument:
     - '&cToo few arguments'
     - '&cUsage: /bungeestaff <help>'
   Help:
-    - '&e&lBungeeStaff Help:'
-    - '&6/bungeestaff reload &8- &7Reload the config modules'
-    - '&6/bungeestaff group &8- &7BungeeStaff grouping system'
-    - '&6/staffchat(sc) &8- &7Toggles Staff Chat'
-    - '&6/report <Player> &8- &7Report a player to staff'
-    - '&6/request(helpop) <Message> &8- &7Request assistance'
-    - '&6/togglestaffmessages(tsm) &8- &7Toggle staff messages'
+    - '&a&lBungeeStaff Help:'
+    - '&2/bungeestaff reload &8- &7Reload the config modules'
+    - '&2/bungeestaff group &8- &7BungeeStaff grouping system'
+    - '&2/staffchat(sc) &8- &7Toggles Staff Chat'
+    - '&2/report <Player> &8- &7Report a player to staff'
+    - '&2/request(helpop) <Message> &8- &7Request assistance'
+    - '&2/togglestaffmessages(tsm) &8- &7Toggle staff messages'
+    - '&2/stafflist(slist) &8- &7View all online staff members!'
+    - '&2/broadcast(announce) &8- &7Broadcast an announcement!'
   No-Such-Argument:
       - '&cIncorrect usage'
       - '&cUsage: /bungeestaff <help>'
 
 Group-Module:
-  Group-Created: '&e&l* &7Group &b%group% &fcreated!'
-  Group-Deleted: '&e&l* &7Group &b%group% &fdeleted!'
+  Group-Created: '&e&l* &7Group &b%group% &7created!'
+  Group-Deleted: '&e&l* &7Group &b%group% &7deleted!'
   Group-Not-Found: '&e&l* &7Group &b%group% &7does not exist!'
   Group-Found: '&e&l* &7Group &b%group% &7already exists!'
   Group-Prefix: '&e&l* &6%group%''s &7prefix: %prefix%Notch'
@@ -29,6 +31,8 @@ Group-Module:
   Player-Group-Remove: '&e&l* &7Group &b%group% &7has been remove from &c%player%!'
   Player-Group-Exists: '&e&l* &b%player% &7is already a member of this group!'
   Player-Group-Not-Exist: '&e&l* &b%player% &7is not a member in this group!'
+  Player-Group-Search: '&e&l* &b%player% &7is in the rank &b&l%rank% &8| %prefix%%player%'
+  Player-Group-Search-Null: '&e&l* &b%player% &7is not in a group!'
   Group-List:
     - '&6&lAvailable Groups:'
     - '&c%groups%'
@@ -36,13 +40,49 @@ Group-Module:
     - '&cToo few arguments'
     - '&cUsage: /bungeestaff group <help>'
   Help:
-    - '&e&lBungeeStaff Group Help:'
-    - '&6/bungeestaff group add <Player> <Group> &8- &7Add a player to specified group!'
-    - '&6/bungeestaff group remove <Player> <Group> &8- &7Remove a player to specified group!'
-    - '&6/bungeestaff group create <Group> &8- &7Create a group!'
-    - '&6/bungeestaff group delete <Group> &8- &7Delete a group!'
-    - '&6/bungeestaff group setprefix <Group> <Prefix> &8- &7Set a group prefix'
-    - '&6/bungeestaff group list &8- &7List available groups!'
+    - '&a&lBungeeStaff Group Help:'
+    - '&2/bungeestaff group add <Player> <Group> &8- &7Add a player to specified group!'
+    - '&2/bungeestaff group remove <Player> <Group> &8- &7Remove a player to specified group!'
+    - '&2/bungeestaff group create <Group> &8- &7Create a group!'
+    - '&2/bungeestaff group delete <Group> &8- &7Delete a group!'
+    - '&2/bungeestaff group setprefix <Group> <Prefix> &8- &7Set a group prefix'
+    - '&2/bungeestaff group list &8- &7List available groups!'
+    - '&2/bungeestaff group search <Player> &8- &7Search for a player''s group!'
+
+Maintenance-Module:
+  ServerList: '&eMaintenance Mode'
+  Player-Already-Whitelisted: '&b&l* &7User &3%arg% &7is already whitelisted!'
+  Player-Not-Whitelisted: '&b&l* &7User &3%arg% &7is not whitelisted!'
+  Player-Add-Whitelist: '&b&l* &7User &3%arg% &7has been added to the whitelist!'
+  Player-Remove-Whitelist: '&b&l* &7User &3%arg% &7has been removed from the whitelist!'
+  Already-Enabled: '&7Maintenance mode is already enabled'
+  Already-Disabled: '&7Maintenance mode is already disabled'
+  Join-Message: '&cKicked whilst connecting to: &b%server% %NEWLINE% &cServer is currently in maintenance mode %NEWLINE%&f %NEWLINE%&cJoin back in a few minutes!'
+  Online-Kick: '&cMaintenance mode has been &aenabled %NEWLINE%&f %NEWLINE% &dJoin back in a few minutes'
+  M-On:
+    Broadcast-Staff: true
+    Message: '&b%player% &7has enabled maintenance mode!'
+  M-Off:
+    Broadcast-Staff: true
+    Message: '&b%player% &7has disabled maintenance mode!'
+  No-Argument:
+    - '&cToo few arguments'
+    - '&cUsage: /maintenance <help>'
+  List:
+    - '&8&m-----------------------------'
+    - '&3Whitelisted Players:'
+    - '&b%players%'
+    - '&8&m-----------------------------'
+  Help:
+    - '&a&lMaintenance Help:'
+    - '&2/maintenance on &8- &7Turn maintenance mode on'
+    - '&2/maintenance off &8- &7Turn maintenance mode off'
+    - '&2/maintenance add <Player> &8- &7Add a player to maintenance mode'
+    - '&2/maintenance remove <Player> &8- &7Remove a player from maintenance mode'
+    - '&2/maintenance list &8- &7List whitelisted players'
+  No-Such-Argument:
+      - '&cIncorrect usage'
+      - '&cUsage: /maintenance <help>'
 
 Report-Module:
   No-Argument:
@@ -69,6 +109,7 @@ Staff-Follow:
     - '&cToo few arguments'
     - '&cUsage: /bstafffollow <Player>'
   Joining: '&7Joining &b%reported%''s &7server! &e(%reported_server%)'
+  Already-In: '&7You are already in &b%player%''s &7server!'
 
 Request-Module:
   No-Argument:
@@ -91,14 +132,28 @@ StaffChat-Module:
 
 Staff-Messages:
   Staff-Join: '&9[Staff] &b%player% has joined the network!'
-  Staff-Leave: '&9[Staff] &b%player% has left the network!'
+  Staff-Leave: '&9[Staff] &b%player% has left the network! (From %server_from%)'
   Staff-Messages-On: '&7You can &anow &7see staff messages'
   Staff-Messages-Off: '&7You can &cno longer &7see staff messages'
 
-#Staff-List:
-#  Format: '%prefix%%player% &7-&b %player_server%'
-#  Message:
-#    - '&7Online Staff: &b%online_staff%'
-#    - '%format%'
+Staff-List:
+  List: '%prefix%%player% &8-&b %player_server%'
+  Header:
+    - '&8&m-----------------------------'
+    - '&6&lOnline Staff:&e %online_staff%'
+    - ''
+    - '&cStaff Online:'
+  Dont-Edit: '%list%'
+  Footer:
+    - '&8&m-----------------------------'
+
+Broadcast-Module:
+  No-Argument:
+    - '&cToo few arguments'
+    - '&cUsage: /broadcast <Reason>'
+  Message:
+    - '&f'
+    - '&8[&c&l!&4&lAnnouncement&c&l!&8] &7(%player_server%) %prefix%%player%: &b%message%'
+    - '&f'
 
 No-Permission: '&4&lError: &cYou do not have permission for this command!'

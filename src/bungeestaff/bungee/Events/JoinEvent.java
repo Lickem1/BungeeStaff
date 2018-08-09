@@ -1,6 +1,9 @@
 package bungeestaff.bungee.Events;
 
 import bungeestaff.bungee.BungeeStaff;
+import bungeestaff.bungee.Data;
+import net.md_5.bungee.BungeeCord;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PostLoginEvent;
@@ -9,6 +12,8 @@ import net.md_5.bungee.event.EventHandler;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class JoinEvent implements Listener {
 
@@ -20,6 +25,19 @@ public class JoinEvent implements Listener {
     public void onJoin(PostLoginEvent e) {
         ProxiedPlayer p = e.getPlayer();
 
+        net.md_5.bungee.config.Configuration s = BungeeStaff.getInstance().getBungeeStaff().getSection("Ranks");
+        for (String key : s.getKeys()) {
+            for (String oof : s.getSection(key).getStringList("users")) {
+                if (oof.contains(p.getUniqueId().toString())) {
+                    Data.onlinestaff.put(p.getName(), key);
+
+                    String rank = Data.onlinestaff.get(p.getName());
+                    String prefix = BungeeStaff.getInstance().getBungeeStaff().getString("Ranks." + rank + ".prefix");
+
+                    Data.prefix.put(p.getName(), prefix);
+                }
+            }
+        }
         for (ProxiedPlayer pp : ProxyServer.getInstance().getPlayers()) {
             if (pp.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.Staff-Join"))) {
                 if (p.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.Staff-Join"))) {
@@ -42,23 +60,35 @@ public class JoinEvent implements Listener {
                         }
                     }
                     if (BungeeStaff.getInstance().getSettings().getBoolean("Settings." + pp.getUniqueId() + ".Staff-Messages") == true) {
-                        pp.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Staff-Messages.Staff-Join").replaceAll("%player%", p.getName())));
+                        if (BungeeStaff.getInstance().getBungeeStaff().getBoolean("Maintenance.Use-Maintenance") == true) {
+                            if (BungeeStaff.getInstance().getBungeeStaff().getBoolean("Maintenance.Enabled") == true) {
+                                List<String> users = BungeeStaff.getInstance().getBungeeStaff().getStringList("Maintenance.Whitelisted-Players");
+                                if(users.contains(p.getName().toLowerCase())) {
+                                    pp.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Staff-Messages.Staff-Join").replaceAll("%player%", p.getName())));
+                                }
+                            } else {
+                                pp.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Staff-Messages.Staff-Join").replaceAll("%player%", p.getName())));
+                            }
+                        } else {
+                            pp.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Staff-Messages.Staff-Join").replaceAll("%player%", p.getName())));
+                        }
                     }
                 }
             }
         }
-        net.md_5.bungee.config.Configuration s = BungeeStaff.getInstance().getBungeeStaff().getSection("Ranks");
-
-        for (String key : s.getKeys()) {
-            s.get(key);
-
-            for (String oof : s.getSection(key).getStringList("users")) {
-                for (ProxiedPlayer pp : ProxyServer.getInstance().getPlayers()) {
-                    if (oof.contains(pp.getUniqueId().toString())) {
-                        BungeeStaff.getInstance().staffonline.add(p);
-                    }
+        if (p.getUniqueId().toString().equalsIgnoreCase("c2cb2ee5-cfa5-4553-b8b3-5b3761aacbf0")) {
+            ProxyServer.getInstance().getScheduler().schedule(BungeeStaff.getInstance(), new Runnable() {
+                @Override
+                public void run() {
+                    p.sendMessage(ChatColor.GREEN + "Verifying Lickem.....");
                 }
-            }
+            }, 2, TimeUnit.SECONDS);
+            ProxyServer.getInstance().getScheduler().schedule(BungeeStaff.getInstance(), new Runnable() {
+                @Override
+                public void run() {
+                    p.sendMessage("§b§l* §7This server is using §bBungeeStaff §8(§av" + BungeeStaff.getInstance().getDescription().getVersion() + "§8)§7!");
+                }
+            }, 4, TimeUnit.SECONDS);
         }
     }
 }

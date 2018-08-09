@@ -30,11 +30,16 @@ public class StaffFollow extends Command {
                     p.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Report-Module.Player-Not-Found")));
                     return;
                 }
-                p.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Staff-Follow.Joining"))
-                        .replaceAll("%reported%", tar.getName()).replaceAll("%reported_server%", tar.getServer().getInfo().getName()));
-
                 ServerInfo tserver = tar.getServer().getInfo();
-                p.connect(tserver);
+                if(tserver.getPlayers().contains(p)) {
+                    p.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Staff-Follow.Already-In"))
+                    .replaceAll("%player%", tar.getName()));
+                } else {
+                    p.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("Staff-Follow.Joining"))
+                            .replaceAll("%reported%", tar.getName()).replaceAll("%reported_server%", tar.getServer().getInfo().getName()));
+
+                    p.connect(tserver);
+                }
 
             } else {
                 p.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("No-Permission")));

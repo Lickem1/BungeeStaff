@@ -1,6 +1,6 @@
 ## Default configuration file for
-## BungeeStaff v2.0.0 Developed by Lickem
-Version: v2.0.0
+## BungeeStaff v2.1.2 Developed by Lickem
+Version: v2.1.2
 Custom-Permissions:
   Core-Command: 'bstaff.core'
   Toggle-Staff-Messages: 'bstaff.togglestaffmessages'
@@ -12,6 +12,19 @@ Custom-Permissions:
   Report-Notify: 'bstaff.report.notify'
   Staff-Follow: 'bstaff.follow'
   Staff-List: 'bstaff.stafflist'
+  Maintenance-Command: 'bstaff.maintenance'
+  Maintenance-Bypass: 'bstaff.maintenance.join'
+  Maintenance-Notify: 'bstaff.maintenance.notify'
+  Broadcast-Command: 'bstaff.broadcast'
+
+Maintenance:
+  Use-Maintenance: true
+  Enabled: false
+  Whitelisted-Players:
+    - lickem
+
+Broadcast:
+  Use-Broadcast: true
 
 No-Rank: '&9&l[NULL] &7'
 Rank-List:

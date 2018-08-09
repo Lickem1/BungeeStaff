@@ -1,20 +1,15 @@
 package bungeestaff.bungee;
 
 import bungeestaff.bungee.Commands.*;
-import bungeestaff.bungee.Events.ChatEvent;
-import bungeestaff.bungee.Events.JoinEvent;
-import bungeestaff.bungee.Events.QuitEvent;
-import bungeestaff.bungee.Events.TabComplete;
+import bungeestaff.bungee.Events.*;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.event.TabCompleteEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
-import net.md_5.bungee.event.EventHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,15 +48,15 @@ public class BungeeStaff extends Plugin implements Listener {
         getProxy().getPluginManager().registerListener(this, this);
 
         getProxy().getConsole().sendMessage(ChatColor.DARK_GRAY.toString() + ChatColor.STRIKETHROUGH + "------------------------");
-        getProxy().getConsole().sendMessage("§fBungee§bStaff §8- §dv" + getDescription().getVersion());
+        getProxy().getConsole().sendMessage("§fBungee§bStaff §8- §8(§ev" + getDescription().getVersion() + "§8)");
         getProxy().getConsole().sendMessage(ChatColor.GRAY + "Status §8» " + ChatColor.GREEN + "Plugin enabled");
-        getProxy().getConsole().sendMessage("Author §8» §cLickem");
+        getProxy().getConsole().sendMessage("§6Author §8» §eLickem");
         getProxy().getConsole().sendMessage("");
-        getProxy().getConsole().sendMessage(ChatColor.YELLOW + "SpigotMC §8» §fhttps://www.spigotmc.org/members/gazpachoyt.211629/");
-        getProxy().getConsole().sendMessage(ChatColor.DARK_AQUA + "MC-Market §8» §fhttps://www.mc-market.org/members/54378/");
-        getProxy().getConsole().sendMessage(ChatColor.WHITE + "You§cTube §8» §fhttps://www.youtube.com/Lickem");
-        getProxy().getConsole().sendMessage(ChatColor.AQUA + "Twitter §8» §fhttps://twitter.com/LickemTickem");
-        getProxy().getConsole().sendMessage(ChatColor.GRAY + "Discord §8» §fhttps://discord.gg/Cm7NQX3 (Lickem#9444)");
+        getProxy().getConsole().sendMessage(ChatColor.YELLOW + "SpigotMC §8» §7https://www.spigotmc.org/members/gazpachoyt.211629/");
+        getProxy().getConsole().sendMessage(ChatColor.DARK_AQUA + "MC-Market §8» §7https://www.mc-market.org/members/54378/");
+        getProxy().getConsole().sendMessage(ChatColor.WHITE + "You§cTube §8» §7https://www.youtube.com/Lickem");
+        getProxy().getConsole().sendMessage(ChatColor.AQUA + "Twitter §8» §7https://twitter.com/LickemTickem");
+        getProxy().getConsole().sendMessage(ChatColor.GRAY + "Discord §8» §7https://discord.gg/Cm7NQX3 (Lickem#9444)");
         getProxy().getConsole().sendMessage(ChatColor.DARK_GRAY.toString() + ChatColor.STRIKETHROUGH + "------------------------");
 
         bungeestaffFile = new File(ProxyServer.getInstance().getPluginsFolder() + "/config.yml");
@@ -72,10 +67,9 @@ public class BungeeStaff extends Plugin implements Listener {
         messagesPP = ConfigurationProvider.getProvider(YamlConfiguration.class);
         settingsPP = ConfigurationProvider.getProvider(YamlConfiguration.class);
 
-        register();
         createFiles();
         registerConfig();
-
+        register();
     }
 
     public void onDisable() {
@@ -101,10 +95,19 @@ public class BungeeStaff extends Plugin implements Listener {
         getProxy().getPluginManager().registerCommand(this, new ToggleSM());
         getProxy().getPluginManager().registerCommand(this, new StaffFollow());
         getProxy().getPluginManager().registerCommand(this, new StaffList());
+
+        if(getBungeeStaff().getBoolean("Maintenance.Use-Maintenance")) {
+            getProxy().getPluginManager().registerCommand(this, new MaintenanceCMD());
+        }
+        if(getBungeeStaff().getBoolean("Broadcast.Use-Broadcast")) {
+            getProxy().getPluginManager().registerCommand(this, new BroadcastCMD());
+        }
         new ChatEvent();
         new QuitEvent();
         new JoinEvent();
         new TabComplete();
+        new ProxyPing();
+        new ConnectionEvent();
 
     }
     private void createFiles() {

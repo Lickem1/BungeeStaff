@@ -20,7 +20,7 @@ public class ToggleSM extends Command {
         if(sender instanceof ProxiedPlayer) {
             ProxiedPlayer p = (ProxiedPlayer) sender;
 
-            if(p.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.Toggle-Staff-Messages"))) {
+            if(sender.hasPermission(BungeeStaff.getInstance().getBungeeStaff().getString("Custom-Permissions.Toggle-Staff-Messages"))) {
                 if(BungeeStaff.getInstance().getSettings().getBoolean("Settings." + p.getUniqueId() + ".Staff-Messages") == true) {
                     try {
                         File file = new File(BungeeStaff.getInstance().getDataFolder(), "settings.yml");
@@ -43,7 +43,7 @@ public class ToggleSM extends Command {
                 }
 
             } else {
-                p.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("No-Permission")));
+                sender.sendMessage(BungeeStaff.getInstance().translate(BungeeStaff.getInstance().getMessages().getString("No-Permission")));
             }
         }
     }
