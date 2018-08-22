@@ -105,7 +105,9 @@ public class BungeeStaff extends Plugin implements Listener {
         new ChatEvent();
         new QuitEvent();
         new JoinEvent();
-        new TabComplete();
+        if(getBungeeStaff().getBoolean("Use-Tab-Completion") == true) {
+            new TabComplete();
+        }
         new ProxyPing();
         new ConnectionEvent();
 

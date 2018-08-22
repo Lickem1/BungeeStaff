@@ -1,5 +1,5 @@
 ## Default Message configuration file for
-## BungeeStaff v2.1.2 Developed by Lickem
+## BungeeStaff v2.1.4 Developed by Lickem
 BungeeStaff-Module:
   Reload: '&8[&bBungeeStaff&8] &aModules reloaded'
   No-Argument:
@@ -131,8 +131,8 @@ StaffChat-Module:
   StaffChat-Message: '&8(&2%player_server%&8) %prefix%%player%:&a %message%'
 
 Staff-Messages:
-  Staff-Join: '&9[Staff] &b%player% has joined the network!'
-  Staff-Leave: '&9[Staff] &b%player% has left the network! (From %server_from%)'
+  Staff-Join: '&9[Staff] %prefix%&b%player% has joined the network!'
+  Staff-Leave: '&9[Staff] %prefix%&b%player% has left the network! (From %server_from%)'
   Staff-Messages-On: '&7You can &anow &7see staff messages'
   Staff-Messages-Off: '&7You can &cno longer &7see staff messages'
 
@@ -155,5 +155,9 @@ Broadcast-Module:
     - '&f'
     - '&8[&c&l!&4&lAnnouncement&c&l!&8] &7(%player_server%) %prefix%%player%: &b%message%'
     - '&f'
+
+Server-Switch-Module:
+  First-Join: '&8[&4&lS&8] %prefix%%player% &5joined &8(&d%server%&8)'
+  Switch: '&8[&4&lS&8] %prefix%%player% &5switched to &8(&d%server_to%&8) &5from &8(&d%server_from%&8)'
 
 No-Permission: '&4&lError: &cYou do not have permission for this command!'

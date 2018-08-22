@@ -1,6 +1,6 @@
 ## Default configuration file for
-## BungeeStaff v2.1.2 Developed by Lickem
-Version: v2.1.2
+## BungeeStaff v2.1.4 Developed by Lickem
+Version: v2.1.4
 Custom-Permissions:
   Core-Command: 'bstaff.core'
   Toggle-Staff-Messages: 'bstaff.togglestaffmessages'
@@ -16,7 +16,10 @@ Custom-Permissions:
   Maintenance-Bypass: 'bstaff.maintenance.join'
   Maintenance-Notify: 'bstaff.maintenance.notify'
   Broadcast-Command: 'bstaff.broadcast'
+  Server-Switch: 'bstaff.serverswitch'
+  Server-Switch-Notify: 'bstaff.serverswitch.notify'
 
+Use-Tab-Completion: true
 Maintenance:
   Use-Maintenance: true
   Enabled: false
